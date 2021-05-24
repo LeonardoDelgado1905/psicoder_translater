@@ -8,11 +8,11 @@ estruct_body
     : data_type (ID ) (COMA ID)* PYC estruct_body
     | ;
 
-function : FUNCION data_type ID PAR_IZQ parameters PAR_DER HACER commands return FIN_FUNCION;
+function : FUNCION data_type ID PAR_IZQ parameters PAR_DER HACER commands return_ FIN_FUNCION;
 parameters
     : (data_type ID)(COMA data_type ID)*
     | ;
-return: RETURN expr PYC;
+return_: RETURN expr PYC;
 
 commands
     : command commands
@@ -21,11 +21,10 @@ commands
 command
     : read
     | print
-    | if
-    | while
-    | do_while
-    | for
-//    | switch
+    | if_
+    | whlie_
+    | do_whlie_
+    | for_
     | assign PYC
     | declaration
     | call_function;
@@ -33,13 +32,13 @@ command
 read : LEER PAR_IZQ id_c PAR_DER PYC;
 print : IMPRIMIR PAR_IZQ expr (COMA expr)* PAR_DER PYC;
 
-if : SI PAR_IZQ expr PAR_DER ENTONCES commands else FIN_SI;
-else : SI_NO commands
+if_ : SI PAR_IZQ expr PAR_DER ENTONCES commands else_ FIN_SI;
+else_ : SI_NO commands
      | ;
 
-while : MIENTRAS PAR_IZQ expr PAR_DER HACER commands FIN_MIENTRAS;
-do_while : HACER commands MIENTRAS PAR_IZQ expr PAR_DER PYC;
-for : PARA PAR_IZQ (assign | declaration) PYC expr PYC expr PAR_DER HACER commands FIN_PARA ;
+whlie_ : MIENTRAS PAR_IZQ expr PAR_DER HACER commands FIN_MIENTRAS;
+do_whlie_ : HACER commands MIENTRAS PAR_IZQ expr PAR_DER PYC;
+for_ : PARA PAR_IZQ (assign | declaration) PYC expr PYC expr PAR_DER HACER commands FIN_PARA ;
 
 assign : id_c ASIG expr ;
 declaration : data_type (ID (ASIG expr)?) (COMA ID (ASIG expr)?)* PYC;
