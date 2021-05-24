@@ -27,7 +27,7 @@ command
     | for_
     | assign PYC
     | declaration
-    | call_function;
+    | call_function PYC;
 
 read : LEER PAR_IZQ id_c PAR_DER PYC;
 print : IMPRIMIR PAR_IZQ expr (COMA expr)* PAR_DER PYC;
@@ -43,7 +43,7 @@ for_ : PARA PAR_IZQ (assign | declaration) PYC expr PYC expr PAR_DER HACER comma
 assign : id_c ASIG expr ;
 declaration : data_type (ID (ASIG expr)?) (COMA ID (ASIG expr)?)* PYC;
 
-call_function : ID PAR_IZQ send_parameters PAR_DER PYC;
+call_function : ID PAR_IZQ send_parameters PAR_DER;
 send_parameters
     : expr (COMA expr)*
     | ;

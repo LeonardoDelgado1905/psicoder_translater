@@ -11,8 +11,8 @@ public class PsicoderToGo extends PsicoderBaseListener{
     @Override
     public void enterStart(PsicoderParser.StartContext ctx) {
         System.out.println("package main");
-        System.out.println("import(" +
-                "   fmt" +
+        System.out.println("import(\n" +
+                "   fmt\n" +
                 ")");
     }
 
