@@ -12,6 +12,7 @@ function : FUNCION data_type ID PAR_IZQ parameters PAR_DER HACER commands return
 parameters
     : (data_type ID)(COMA data_type ID)*
     | ;
+
 return: RETURN expr PYC;
 
 commands
