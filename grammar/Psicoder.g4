@@ -22,9 +22,10 @@ command
     : read
     | print
     | if_
-    | whlie_
-    | do_whlie_
+    | while_
+    | do_while_
     | for_
+    | switch_
     | assign PYC
     | declaration
     | call_function PYC;
@@ -36,9 +37,14 @@ if_ : SI PAR_IZQ expr PAR_DER ENTONCES commands else_ FIN_SI;
 else_ : SI_NO commands
      | ;
 
-whlie_ : MIENTRAS PAR_IZQ expr PAR_DER HACER commands FIN_MIENTRAS;
-do_whlie_ : HACER commands MIENTRAS PAR_IZQ expr PAR_DER PYC;
+while_ : MIENTRAS PAR_IZQ expr PAR_DER HACER commands FIN_MIENTRAS;
+do_while_ : HACER commands MIENTRAS PAR_IZQ expr PAR_DER PYC;
 for_ : PARA PAR_IZQ (assign | declaration) PYC expr PYC expr PAR_DER HACER commands FIN_PARA ;
+
+switch_ : SELECCIONAR PAR_IZQ id_c PAR_DER ENTONCES (defect | (caso)+ (defect)?) FIN_SELECCIONAR;
+
+caso : CASO expr DOS_P commands (ROMPER PYC)?;
+defect: DEFECTO DOS_P commands (ROMPER PYC)?;
 
 assign : id_c ASIG expr ;
 declaration : data_type (ID (ASIG expr)?) (COMA ID (ASIG expr)?)* PYC;
@@ -90,6 +96,8 @@ data_type
 
 id_c: ID ('.' ID)*;
 
+COMMENT: '/*' .*? '*/' -> skip ;
+LINE_COMMENT: '//' ~[\r\n]* -> skip ;
 WS		: [ \t\r\n]+ -> skip ;
 FUNCION_PRINCIPAL : 'funcion_principal';
 FIN_PRINCIPAL: 'fin_principal';
@@ -106,6 +114,7 @@ FIN_FUNCION: 'fin_funcion';
 HACER: 'hacer';
 COMA: ',';
 PYC: ';';
+DOS_P: ':';
 LEER: 'leer';
 IMPRIMIR: 'imprimir';
 SI : 'si';
@@ -118,6 +127,11 @@ PAR_DER : ')';
 FIN_MIENTRAS : 'fin_mientras';
 PARA: 'para';
 FIN_PARA : 'fin_para';
+SELECCIONAR : 'seleccionar';
+CASO : 'caso';
+DEFECTO : 'defecto';
+ROMPER : 'romper';
+FIN_SELECCIONAR : 'fin_seleccionar';
 ASIG : '=';
 MAS : '+';
 MENOS : '-';
