@@ -27,7 +27,7 @@ command
     | for_
     | switch_
     | assign PYC
-    | declaration
+    | declaration PYC
     | call_function PYC;
 
 read : LEER PAR_IZQ id_c PAR_DER PYC;
@@ -47,7 +47,7 @@ caso : CASO expr DOS_P commands (ROMPER PYC)?;
 defect: DEFECTO DOS_P commands (ROMPER PYC)?;
 
 assign : id_c ASIG expr ;
-declaration : data_type (ID (ASIG expr)?) (COMA ID (ASIG expr)?)* PYC;
+declaration : data_type (ID (ASIG expr)?) (COMA ID (ASIG expr)?)* ;
 
 call_function : ID PAR_IZQ send_parameters PAR_DER;
 send_parameters
